@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to PNG Converter - MultiTools Hub</title>
+    <meta name="description" content="Convert your images to PNG format online. Free, fast, and easy to use image conversion tool.">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header will be dynamically loaded -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="container py-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h1 class="mb-4">Image to PNG Converter</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <div id="dropZone" class="border rounded p-5 mb-3">
+                                <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+                                <h4>Drag & Drop your image here</h4>
+                                <p class="text-muted">or</p>
+                                <button class="btn btn-primary" id="selectFile">Select File</button>
+                                <input type="file" id="fileInput" accept="image/*" class="d-none">
+                            </div>
+                            <div id="preview" class="d-none">
+                                <img id="imagePreview" class="img-fluid mb-3" alt="Preview">
+                                <button class="btn btn-success" id="convertBtn">Convert to PNG</button>
+                                <button class="btn btn-secondary" id="resetBtn">Reset</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Ad Section -->
+                        <div class="ad-container text-center my-4">
+                            <!-- Ad space will be added here -->
+                        </div>
+                        
+                        <!-- Instructions -->
+                        <div class="mt-4">
+                            <h3>How to Use</h3>
+                            <ol>
+                                <li>Drag and drop your image file into the upload area or click "Select File"</li>
+                                <li>Preview your image to ensure it's the correct one</li>
+                                <li>Click "Convert to PNG" to start the conversion</li>
+                                <li>Download your converted PNG file</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer will be dynamically loaded -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../js/main.js"></script>
+    <script>
+        // Tool-specific JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const selectFile = document.getElementById('selectFile');
+            const preview = document.getElementById('preview');
+            const imagePreview = document.getElementById('imagePreview');
+            const convertBtn = document.getElementById('convertBtn');
+            const resetBtn = document.getElementById('resetBtn');
+
+            // Handle file selection
+            selectFile.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileSelect);
+
+            // Handle drag and drop
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('border-primary');
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('border-primary');
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('border-primary');
+                const files = e.dataTransfer.files;
+                if (files.length) handleFile(files[0]);
+            });
+
+            // Handle file selection
+            function handleFileSelect(e) {
+                const file = e.target.files[0];
+                if (file) handleFile(file);
+            }
+
+            // Process selected file
+            function handleFile(file) {
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select an image file');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    preview.classList.remove('d-none');
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Convert to PNG
+            convertBtn.addEventListener('click', () => {
+                // Implementation for PNG conversion
+                alert('Conversion functionality will be implemented here');
+            });
+
+            // Reset
+            resetBtn.addEventListener('click', () => {
+                fileInput.value = '';
+                preview.classList.add('d-none');
+                imagePreview.src = '';
+            });
+        });
+    </script>
+</body>
+</html> 
